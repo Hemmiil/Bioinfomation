@@ -47,6 +47,22 @@ data = p01.process_all()
 
 `p02_GMM_loop.py`
 
+使用例
+```
+import GMM_loop
+
+result = GMM_loop.experiments(
+        df = data,
+        N = 2, # 移動回数
+        n_components=2, #クラスタ数
+        save_dir="tmp_Dec27",
+        alpha=0.5,
+        random_state_list=[0], # ランダムステート数
+        is_dummy=True
+    )
+```
+
+
 `p02_GMM_loop.experiments`
 入力
 
@@ -76,7 +92,48 @@ result["result_type"][random_state][n_move]
 
 ### 3. 結果の可視化
 
-(編集中)
+`Sznkey_diagram`
+
+|引数名|データタイプ|説明|
+|---|---|---|
+|cluster_before|pandas.Series|`p02_GMM_loop.experiments`の`cluster`データに格納されている、任意のランダムステート、移動回数のクラスタリング結果|
+|cluster_after|pandas.Series|`p02_GMM_loop.experiments`の`cluster`データに格納されている、任意のランダムステート、移動回数のクラスタリング結果|
+
+- サンキーダイアグラムを出力し、移動によるクラスター間の統合、分裂の様子を可視化する
+
+`scatterplot`
+|引数名|データタイプ|説明|
+|---|---|---|
+|X|pandas.DataFrame|カラムにcluster, FSC-A, APC-A-Compensatedがある、セルソータのデータ|
+
+- クラスタごとに色分けした、FSC, APCの散布図を作成する。
+- クラスタの特色を可視化する
+
+`Absolute_distance`
+|引数名|データタイプ|説明|
+|---|---|---|
+|diff_dict|dict[pandas.DataFrame]|`p02_GMM_loop.experiments`の`diff`データに格納されている、任意のランダムステートの移動距離のデータ|
+
+- 実験全体の、移動距離の推移を折れ線グラフで出力する
+- 特徴量ごとに色分けし、どの特徴量が移動距離の減衰に時間がかかったかを調べる
+
+`System_error`
+|引数名|データタイプ|説明|
+|---|---|---|
+|diff_dict|dict[pandas.DataFrame]|`p02_GMM_loop.experiments`の`diff`データに格納されている、任意のランダムステートの移動距離のデータ|
+
+- 実験区画ごとに、総異動距離を棒グラフで出力する
+- 実験誤差が大きい実験区画を探す
+
+`PCA_Biplot`
+|引数名|データタイプ|説明|
+|---|---|---|
+|X|pandas.DataFrame|`p02_GMM_loop.experiments`の`X`データに格納されている、任意のランダムステート、移動回数の特徴量のデータ|
+|clusters|pandas.DataFrame|`p02_GMM_loop.experiments`の`cluster`データに格納されている、任意のランダムステート、移動回数のクラスタリング結果|
+
+- 特徴量に対して主成分分析を実行し、第一、第二主成分の散布図に負荷ベクトルを表示したバイプロットグラフを出力する
+
+
 
 ## PlanDyOデータ処理
 
