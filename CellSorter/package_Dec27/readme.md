@@ -223,3 +223,10 @@ result["result_type"][random_state][n_move]
 ヒートマップ：`heatmap_manual`
 
 QQプロット：`qqplot_manual`
+
+---
+
+### memo
+
+- 2025/01/06
+	- p29.ipynb 可視化確認用ノートブック
