@@ -242,6 +242,24 @@ result["result_type"][random_state][n_move]
 
 QQプロット：`qqplot_manual`
 
+
+### システムエラーの可視化
+#### `p07_SystemError_vis.py`
+
+`SystemError_vis.clustering`
+
+`SystemError_vis.cul_distance`
+
+- 値のテーブル（`df`）をクラスタ中心からの距離のテーブル（`df_distance`）に変換する
+
+`SystemError_vis.violinplots`
+
+- 移動量のバイオリンプロットを作成する
+
+`SystemError_vis.boxplots`
+
+- 移動量とクラスタサイズがわかる長方形のグラフを作図する
+
 ---
 
 ### memo
