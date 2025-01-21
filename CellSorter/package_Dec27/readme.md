@@ -86,7 +86,25 @@ result = GMM_loop.experiments(
 result["result_type"][random_state][n_move]
 ```
 
-- `result_type`：結果の種類（X, diff, cluster, profile)
+- `result_type`：結果の種類（X, diff, cluster, profile, gmm_centers, ward, config)
+
+事例：
+```
+[hemmi@matsu ~]$ ls CellSorter/scripts/output_Jan20/data/0/
+01_X/           03_cluster/     05_gmm_centers/ config.json     
+02_diff/        04_profile/     06_ward/     
+```
+
+|ディレクトリ名|説明|
+|---|---|
+|01_X|`init.csv`には移動前のデータが、`{n}.csv`にはn回目の移動後のデータが格納されている|
+|02_diff|データのクラスタ中心との距離|
+|03_cluster|クラスタリング結果|
+|04_profile|各サンプルにおける、任意のクラスタの構成比|
+|05_gmm_centers|クラスタ中心（`model.mean_`をpandas.DataFrame型にしたもの）|
+|06_ward|データのサンプル情報|
+
+
 - `random_state`：ランダムシード
 - `n_move`：移動回数
 
