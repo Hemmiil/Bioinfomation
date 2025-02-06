@@ -102,6 +102,15 @@ class FlowCytometryProcessor:
 
         is_anomaly = (df_anomaly.sum(axis=1) == len(df.columns)).values
         return df[is_anomaly]
+    
+    def fix_colname(self, df):
+        columns_Compensated = df.columns[["-Compensated" in col for col in df.columns]]
+        df = df.rename(
+            {col : col.replace("-Compensated", "") for col in columns_Compensated}
+            , axis=1
+        )
+        return df
+
 
     def process_file(self, path, station):
         """1つのファイルを処理"""
@@ -126,6 +135,9 @@ class FlowCytometryProcessor:
         # 採取場所ラベルの追加
         df_sub["STATION_label"] = station
 
+        # カラム名の修正（Compensated　という記述を削除）
+        df_sub = self.fix_colname(df_sub)
+
         dropped_length = len(df_sub)
         print(f"Station {station}, File: {path} - Dropped: {dropped_length/original_length:.2f}")
 
@@ -141,9 +153,9 @@ class FlowCytometryProcessor:
         # 変換
         print(self.pathes_dict)
         cols_log_transform = ['FSC-A', 'BSC-A']
-        cols_logicle = ['FITC-A-Compensated', 'PE-A-Compensated', "PI-A-Compensated",
-                        'APC-A-Compensated', 'PerCP-Cy5.5-A-Compensated',
-                        'PE-Cy7-A-Compensated']
+        cols_logicle = ['FITC-A', 'PE-A', "PI-A",
+                        'APC-A', 'PerCP-Cy5.5-A',
+                        'PE-Cy7-A']
 
         self.df[cols_log_transform] = self.df[cols_log_transform].apply(np.log10)
         self.df = self.logicle_transform(self.df, cols_logicle)
@@ -155,9 +167,8 @@ class FlowCytometryProcessor:
 
         return self.df
 
-instance_var = FlowCytometryProcessor(
-    stations=[1,4,8]
-)
-
 def main():
-    return instance_v
+    instance_var = FlowCytometryProcessor(
+        stations=[1,4,8]
+    )
+    return instance_var.process_all()
