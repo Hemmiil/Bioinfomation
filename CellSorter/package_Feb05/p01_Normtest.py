@@ -25,6 +25,27 @@ def norm_test(x_obs):
         "kurt_p_value": kurt_p_value
     }
 
+def norm_statistics(x_obs):
+    n = len(x_obs)
+    if n > 3:
+        mu = sum(x_obs) / n
+        s = sum([(v - mu)**2 for v in x_obs]) / n
+
+        skewness = n/((n-1)*(n-2)) * sum([((v-mu)/s)**3 for v in x_obs])
+        kurtosis = (n*(n+1))/((n-1)*(n-2)*(n-3)) * sum([((v-mu)/s)**4 for v in x_obs]) - (3*(n-1)**2) / ((n-2)*(n-3))
+
+        return {
+            "skewness": skewness,
+            "kurtosis": kurtosis,
+            "cluster_size": n
+        }
+    else:
+        return {
+            "skewness": 0,
+            "kurtosis": 0,
+            "cluster_size": n
+        }
+
 import numpy as np
 from math import pi, sqrt, log
 
@@ -52,7 +73,7 @@ def QQplot(x_obs, figure_limitation, is_save=False, filename=""):
     import matplotlib.pyplot as plt
 
 
-
+    n = len(x_obs)
     mu = np.sum(x_obs)/n
     sigma = sqrt(np.sum([(x-mu)**2 for x in x_obs])/(n-1))
 
@@ -84,10 +105,10 @@ def QQplot(x_obs, figure_limitation, is_save=False, filename=""):
     plt.show()
 
 def main(x, filename, figure_limitation):
-    result_dict = norm_test(x)
-    D_KL, _, _, _ = D_KL(x)
+    result_dict = norm_statistics(x)
+    D_KL_v, _, _, _ = KL_D(x)
 
-    result_dict["KL_D"] = D_KL
+    result_dict["KL_D"] = D_KL_v
 
     QQplot(x, figure_limitation=figure_limitation, is_save=True, filename=filename)
 
