@@ -1,0 +1,7 @@
+{
+    "PCA_random_state": [0],
+    "GMM_random_state": [0],
+    "GMM_num_clusters": [16],
+    "date": "2025/02/09",
+    "n_samples": 1
+}
