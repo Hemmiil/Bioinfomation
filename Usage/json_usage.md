@@ -23,3 +23,7 @@ d = {
 with open('data/temp/test.json', 'w') as f:
     json.dump(d, f, indent=2)
 ```
+
+## 参照
+
+https://note.nkmk.me/python-json-load-dump/
