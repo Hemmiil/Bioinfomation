@@ -4,8 +4,8 @@
 ```
 import os
 
-save_dir = "---"
-  if not os.path.exists(save_dir):
-      os.makedirs(save_dir)
+def robust_makedir(dir_path):
+    if not os.path.exists(dir_path):
+        os.makedirs(dir_path)
 
 ```
