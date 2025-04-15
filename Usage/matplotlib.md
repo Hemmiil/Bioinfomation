@@ -52,3 +52,15 @@
       plt.show()
   ```
   - 実際に表示する書式（line22~）
+ 
+## バイオリンプロットの色を変える
+```python
+ax.violinplot(
+    rawdata[col],
+    positions=[-1],
+    showmeans=False,
+    showmedians=True,
+    violinprops={"facecolor": "tab:orange"}
+)
+
+```
