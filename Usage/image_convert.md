@@ -10,3 +10,11 @@ convert *.png *.eps
 ```
 
 [参考](https://korechi.hatenablog.com/entry/2015/12/02/183422)
+
+- .pdf を.eps に変換するコマンド
+```bash
+# 追加インストール
+brew install ghostscript
+# コンバート
+magick *.pdf *.eps
+```
